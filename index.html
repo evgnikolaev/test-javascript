@@ -6,58 +6,52 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
 	<style>
-		#box,#box2{
-			width: 50px;
-			height: 50px;
-			background: #ff0000;
+		img:hover {
+			border: 5px solid #000;
+		}
+
+		.tab-wrap li {
+			display: inline-block;
+		}
+
+		.tab-wrap li.active {
+			color: #0f0;
+		}
+
+		.tab {
+			display: none;
+		}
+
+		.tab.active {
+			display: block;
 		}
 	</style>
 </head>
 <body>
 
-<!-- выюорка -->
-<div id="one5" class="qwerty">
-	ttt
-</div>
-
-<div id="one1">
-	000
-	<div name="fio"> 1111</div>
-	<div class="qwerty"> 22222</div>
-</div>
-
-
+<p>
+	<img src="img/1.jpg" alt="" class="temp-class mb-2" height="50px" width="50px" data-petya="val " style="font-size: 11px">
+	<img src="img/2.jpg" alt="" height="100px" width="100px">
+</p>
+<p>
+	<a href="google.com">google</a>
+</p>
+<p>
+	<input type="password" value="qwerty">
+</p>
 
 
-<!-- пример1  -->
-<div id="box"></div>
-
-<!-- пример4  -->
-<button onclick="changeWidth();">width</button>
-<button onclick="changeHeight();">height</button>
-
-<div id="box2"></div>
-<button onclick="changeBgg();">changeBgg</button>
-
-<!-- пример2  -->
-<ul id="list">
-	<li>list1</li>
-	<li>list2</li>
-	<li id="one">list3</li>
-	<li>
-		list4
-	</li>
-	<li>list5</li>
-	<li>list6</li>
-	<li>list7</li>
-	<li>list8</li>
-	<li>list9</li>
-	<li>list10</li>
+<!-- пример 1 -->
+<ul class="tab-wrap">
+	<li data-target="home" onclick="tabShow(this)" class="active"> home</li>
+	<li data-target="catalog" onclick="tabShow(this)">catalog</li>
 </ul>
+<div class="tab-content">
+	<div class="tab active" id="home">home content</div>
+	<div class="tab" id="catalog">catalog content</div>
+</div>
 
 
-
-index1
-<script src="dom.js"></script>
+<script src="attr.js"></script>
 </body>
 </html>
