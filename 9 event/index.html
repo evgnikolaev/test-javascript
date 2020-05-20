@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.box {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			border: 1px solid #000;
+		}
+
+		.red {
+			background: red;
+		}
+
+		.blue {
+			background: blue;
+		}
+
+		.green {
+			background: green;
+		}
+
+		.yellow {
+			background: yellow;
+		}
+	</style>
+</head>
+<body>
+
+<!--   1 способ в атрибуте (не удобен)  -->
+<button id="but" onclick="fun()">click me</button>
+
+
+<input type="text" id="inp">
+
+
+<br><br>
+<!--   определние личности  -->
+<button id="but0">click me</button>
+<button id="but1">click me</button>
+<button id="but2">click me</button>
+<button id="but3">click me</button>
+
+
+<br><br><br><br>
+<!--   пример 1  -->
+<div class="box red"></div>
+<div class="box blue"></div>
+<div class="box green"></div>
+<div class="box yellow"></div>
+
+
+<script src="event.js"></script>
+</body>
+</html>
