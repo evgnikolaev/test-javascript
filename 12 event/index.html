@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		table {
+			border-spacing: 10px;
+		}
+
+		td {
+			border: 2px solid #000;
+			padding: 10px;
+			width: 0;
+			height: 0;
+		}
+	</style>
+</head>
+<body>
+
+<!--  Пример 1-->
+<table>
+	<tr>
+		<td>item1</td>
+		<td>item2</td>
+		<td>item3</td>
+	</tr>
+	<tr>
+		<td>item1</td>
+		<td>item2</td>
+		<td>item3</td>
+	</tr>
+	<tr>
+		<td>item1</td>
+		<td>item2</td>
+		<td>item3</td>
+	</tr>
+</table>
+
+
+<!--  Пример 2-->
+<input type="text" id="a"><input type="text" id="b">
+<div class="actions">
+	<button data-action="+">+</button>
+	<button data-action="-">-</button>
+	<button data-action="*">*</button>
+	<button data-action="/">/</button>
+</div>
+<p id="result"></p>
+
+
+<script src="event.js"></script>
+</body>
+</html>
