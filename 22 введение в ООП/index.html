@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body {
+			width: 800px;
+			padding: 70px;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.popup {
+			background: #fff;
+			position: absolute;
+			border: 1px solid #000;
+			opacity: 0;
+			transition: opacity 0.5s ease;
+		}
+
+		.popup.active {
+			opacity: 1;
+		}
+
+		.popup.top {
+			top: -100%;
+			left: 0;
+		}
+
+		.popup.left {
+			top: 0;
+			left: 100%;
+		}
+	</style>
+</head>
+<body>
+
+<div id="el1">click</div>
+<div id="el2">click2</div>
+
+
+<script src="js.js"></script>
+</body>
+</html>
