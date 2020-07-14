@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+
+	</style>
+</head>
+<body>
+
+<form action="">
+	<input type="text" placeholder="email" name="email" data-rule="required email">
+	<input type="text" placeholder="+28(243)00-00-000" name="phone" data-rule="required phone">
+	<input type="text" placeholder="password" name="password" data-rule="required password">
+	<input type="checkbox" name="agree" data-rule="required">
+	<p><select name="city" data-rule="required">
+		<option selected disabled>Select your city</option>
+		<option value="1">Kiev</option>
+	</select></p>
+	<p>
+	<textarea name="message" data-rule="required max" data-max="3">textarea</textarea>
+	</p>
+	<button>submit</button>
+</form>
+
+<script src="js.js"> </script>
+</body>
+</html>
