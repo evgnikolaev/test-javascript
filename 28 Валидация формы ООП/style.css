@@ -1,0 +1,15 @@
+.input.error .field {
+	border: 1px solid red;
+}
+
+.input.error .message {
+	color: red;
+}
+
+.input.success .field {
+	border: 1px solid green;
+}
+
+.input.success .message {
+	color: green;
+}

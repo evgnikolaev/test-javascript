@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<form action="" id="myForm">
+asfasdf
+
+	<div class="input">
+		<label for="inp1">Inp1</label> <input type="text" id="inp1" name="inp1" class="field" data-error="error">
+		<div class="message"></div>
+	</div>
+
+	<div class="input">
+		<label for="inp1">Inp2</label> <input type="text" id="inp2" name="inp2" class="field" data-error="error">
+		<div class="message"></div>
+	</div>
+
+	<button>Send</button>
+	<button type="reset">Reset</button>
+
+	<!--
+	<button type="button">Submit</button>
+	 	!!!!! По умолчанию type=submit, нпример если не указать type
+			Если нужна просто кнопка в форме, но чтобы она не отправлял, ставим type=button !!!!!
+	-->
+</form>
+
+
+<script src="js.js"></script>
+<script>
+	var v = new Validator({
+		id: 'myForm',
+		// !!!передаю правила на каждый input, а там я дергаю соответствующий метод
+		methods:
+			{
+				'inp1': [
+					['notEmpty'],
+					['pattern', 'email']
+				],
+				'inp2': [
+					['notEmpty'],
+				]
+			},
+	});
+</script>
+</body>
+</html>
