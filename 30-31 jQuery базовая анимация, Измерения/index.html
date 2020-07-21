@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.wrap {
+			background: red;
+			width: 200px;
+			height: 200px;
+			margin: 0 auto;
+		}
+
+		.box {
+			width: 100px;
+			height: 100px;
+			background: #ccc;
+			padding: 20px;
+			border: 10px solid red;
+			margin: 30px;
+
+			/*
+				!!!! оставляет блок по ширине и высоте 100px, При этом контентная область уменьшиться до 40px ( width - padding - border)
+				без нее сам блок будет по ширине и высоте по 160px (width + padding + border),  При этом контентная область по 100px !!!!
+			*/
+			/*box-sizing: border-box;*/
+		}
+		.abs{
+			margin: 0;
+			position: absolute;
+			left: 20px;
+			overflow: auto;
+		}
+
+		body {
+			height: 5000px
+		}
+	</style>
+</head>
+<body>
+
+<!--<div class="wrap"></div>-->
+<div class="box">111</div>
+<div class="box abs">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, architecto asperiores beatae commodi consequatur consequuntur dolorem earum eius explicabo impedit in libero magni minus molestiae natus officiis perferendis quam voluptates?</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js.js"></script>
+</body>
+</html>
