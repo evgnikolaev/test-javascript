@@ -7,13 +7,9 @@
 1-30 папки  Doctype Html
 ```
 
-[2) es6](https://www.youtube.com/watch?v=Ti2Q4sQkNdU&feature=emb_logo&ab_channel=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BB%D0%B5%D0%BD%D0%9C%D0%B8%D0%BD%D0%B8%D0%BD)
+[2.1) vladilen es6](https://www.youtube.com/watch?v=Ti2Q4sQkNdU&feature=emb_logo&ab_channel=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BB%D0%B5%D0%BD%D0%9C%D0%B8%D0%BD%D0%B8%D0%BD)
 
+[2.2) js-playlist](https://www.youtube.com/watch?v=aQkgUUmUJy4&list=PLqKQF2ojwm3l4oPjsB9chrJmlhZ-zOzWT&ab_channel=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BB%D0%B5%D0%BD%D0%9C%D0%B8%D0%BD%D0%B8%D0%BD)
 ```
-Нововведения es6
-```
-
-[3) js-playlist](https://www.youtube.com/watch?v=aQkgUUmUJy4&list=PLqKQF2ojwm3l4oPjsB9chrJmlhZ-zOzWT&ab_channel=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BB%D0%B5%D0%BD%D0%9C%D0%B8%D0%BD%D0%B8%D0%BD)
-```
-Сложный js простым языком
+Нововведения es6 и сложный js простым языком
 ```
