@@ -1,6 +1,39 @@
 /*
+  -------   ОПИСАНИЕ ИТЕРАТОРА   ------------
+  Для массивов , для строк по умолчанию определен Symbol.iterator(уникальный) - возвращается ф-ия.
+  Благодаря этому можем итеративно получать элементы строки или массива.
+  новый цикл for..off,
+*/
+const array = [10, 20, 30];
+const strr = 'hello';
 
-	Генераторы - ф-ии, которые могут последовательно (порционно) выдавать результат его работы.
+
+//для массивов , для строк по умолчанию определен Symbol.iterator(уникальный) - возвращается ф-ия.
+// console.log(array[Symbol.iterator]);
+// console.log(strr[Symbol.iterator]);
+
+
+//вызвав ф-ию, вернется объект Array Iterator, у которой можно вызвать метод next()
+const iter = array[Symbol.iterator]();
+// const iter = strr[Symbol.iterator]();
+console.log(iter);
+console.log(iter.next());
+console.log(iter.next());
+console.log(iter.next()); //value: 30, done: false
+console.log(iter.next()); //value: undefined, done: true - закончился
+
+
+// новый цикл for..off - смотрит за Symbol.iterator, и мы можем обращаться к тем объектам для которого определен символ итератора - это зашито в языке
+for (let item of array) {
+	console.log(item);
+}
+
+
+/*
+
+	Аналогично b_11_generator.js.
+
+	ГЕНЕРАТОРЫ - ф-ии, которые могут последовательно (порционно) выдавать результат его работы.
 
 	function* strGenerator(){}   или  function *strGenerator(){}
 	yield 'H'; - порционная выдача

@@ -1,16 +1,16 @@
 /*
-	Классы, наследование, геттеры сеттеры
-*/
+	Классы, наследование, геттеры сеттеры.
+	Класс, название задается с большой буквы.
+	Внутри классы все равно устроены на прототипах.
 
-/*
-* 	Класс, название задается с большой буквы
-*
-* */
+*/
 
 class Animal {
 
 	//статические переменные
 	static type = 'ANIMAL';
+
+	surname = 'human';
 
 	constructor(options) {
 		this.name = options.name;
@@ -30,9 +30,11 @@ const animal = new Animal({
 });
 
 // console.log(animal);	//наследник класса Animal
+// console.log(animal.surname);	//наследник класса Animal
 // animal.voice();			//этот метод будет в прототипе Animal
 // console.log(Animal.type);	//вывод статической переменной
 
+//console.log(animal.__proto__ === Animal.prototype); //Внутри классы все равно устроены на прототипах
 
 /*
 * 	Наследование
