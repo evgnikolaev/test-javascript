@@ -35,3 +35,4 @@ mix.js.map
 _dev.*
 
 vendor/
+webpack/dist/
