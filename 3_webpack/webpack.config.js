@@ -66,7 +66,8 @@ module.exports = {
 		   [contenthash] - hash, если изменился контент в файле, используется чтобы браузер не кешировал */
 		filename: '[name].[contenthash].bundle.js',
 
-		path: path.resolve(__dirname, 'dist') //__dirname - текущая директория
+		path: path.resolve(__dirname, 'dist'), //__dirname - текущая директория
+
 	},
 
 	/* Есть стандартные плагины, есть те, которые требуют установки
@@ -89,12 +90,25 @@ module.exports = {
 				  'style-loader'  добавляет стили в секцию head в html динамически !!!    (npm i -D style-loader)  */
 				test: /\.css$/,
 				use: ['style-loader', 'css-loader']
+			},
+			{
+				//npm i -D file-loader  - импорты файлов, картинок  (!!!!  не заработал)
+				test: /\.(png|jpg|svg|gif)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							// outputPath: 'img/',
+							// publicPath: '/'
+						}
+					}
+				]
 			}
 		]
 	}
 
 };
-
 
 
 //  103min
