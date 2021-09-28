@@ -6,6 +6,8 @@
 	https://webpack.js.org/
 	Webpack - это система сборки с массой возможностей. В частности, он анализирует JS-код (а также CSS или другой, через лоадеры), это даёт ему superpowers.
 	То есть js будет компилироваться на этапе сборки на платформе node.js
+	Рассмотрим webpack 4.
+
 
 		мы уходим от такого подключения в index.html
 		<script src="analitics.js"></script>
@@ -32,6 +34,9 @@
 		webpack --mode development    (принудительный в режиме разработки)
 		webpack --mode production	  (принудительный в режиме продакшн)
 		webpack --mode development --watch   (следит при этом за изменениями в файлах)
+
+
+    @import "~normalize.css"; - подключаем css библиотеку в стилях через npm install normalize.css
 
 */
 
@@ -61,21 +66,42 @@ module.exports = {
 
 	// куда скомпилировать
 	output: {
+		path: path.resolve(__dirname, 'dist'), //__dirname - текущая директория
 		/* паттерны - https://webpack.js.org/configuration/output/#outputfilename
 		   [name] - здесь паттерн, сюда попадут ключи из entry
 		   [contenthash] - hash, если изменился контент в файле, используется чтобы браузер не кешировал */
 		filename: '[name].[contenthash].bundle.js',
 
-		path: path.resolve(__dirname, 'dist'), //__dirname - текущая директория
 
+		// publicPath: '/'
 	},
+
+
+	/* Дополнительные настройки */
+	resolve: {
+
+		/* расширения по умолчанию, которые должен понять webpack, ['.js','.json', 'можем указать и другие (например png)']
+		   import Post from './Post'  - импортируем уже без  расширений*/
+		extensions: ['.js', '.json'],
+
+		/* Алиасы, например для import Post from '@models/Post';*/
+		alias: {
+			'@models': path.resolve(__dirname, 'src/models/'),
+			'@': path.resolve(__dirname, 'src')
+		}
+	},
+
 
 	/* Есть стандартные плагины, есть те, которые требуют установки
 	   плагины должны задаваться через инстансы (new Plugin())*/
 	plugins: [
+
+		//npm i -D html-webpack-plugin  - для работы с html
 		new HTMLWebpackPlugin({
 			template: './index.html',  // чтобы за основу брал этот html
 		}),
+
+		//npm i -D clean-webpack-plugin  - для очистки файлов и папок
 		new CleanWebpackPlugin()
 	],
 
@@ -92,23 +118,25 @@ module.exports = {
 				use: ['style-loader', 'css-loader']
 			},
 			{
-				//npm i -D file-loader  - импорты файлов, картинок  (!!!!  не заработал)
+				//npm i -D file-loader  - импорты файлов, картинок  (!!!!  не заработал !!!)
 				test: /\.(png|jpg|svg|gif)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: '[name].[ext]',
-							// outputPath: 'img/',
-							// publicPath: '/'
-						}
-					}
-				]
-			}
+				use: ['file-loader']
+			},
+			{
+				test: /\.(ttf|woff)$/,
+				use: ['file-loader']
+			},
+			{
+				// npm i -D xml-loader
+				test: /\.xml$/,
+				use: ['xml-loader']
+			},
+			{
+				// npm i -D csv-loader,  npm i -D papaparse (т.к. csv-loader зависит от papaparse)
+				test: /\.csv$/,
+				use: ['csv-loader']
+			},
 		]
 	}
-
 };
-
-
-//  103min
+// 125

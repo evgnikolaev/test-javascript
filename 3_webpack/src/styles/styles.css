@@ -1,4 +1,11 @@
-.conatiner {
+@import "~normalize.css";/* подкдючаем css библиотеку через npm install normalize.css*/
+@import "roboto.css";
+
+body {
+	font-family: 'Robotos';
+}
+
+.container {
 	padding-top: 2rem;
 	max-width: 1000px;
 	margin: 0 auto;
