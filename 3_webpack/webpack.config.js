@@ -49,6 +49,55 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 //npm i -D clean-webpack-plugin  - для очистки файлов и папок
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
+//npm i -D copy-webpack-plugin  - для копирования фалйлов и папок
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+//npm i -D mini-css-extract-plugin  -  для работы с css. Также это класс, который дает возможность добавить лоадер
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+//npm i -D optimize-css-assets-webpack-plugin  - для сжатия css
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+
+//npm i -D terser-webpack-plugin  - для сжатия js
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+
+
+/*
+Мжоно задать системные переменные для windows и linux:
+	SET NODE_ENV=development
+	export NODE_ENV=development
+Но это неудобно, поэтому ставим пакет "npm i -D cross-env" и
+в package.json запускаем строчкой "cross-env NODE_ENV=development webpack --mode development"
+*/
+const isDev = process.env.NODE_ENV === 'development'; // системная переменная NODE_ENV == development
+const isProd = !isDev;
+
+
+/* Ф-ия используется в строчке конфига optimization: optimization() */
+const optimization = () => {
+	const config = {
+		/* для оптимизации, когда в 2-х точках входа (index.js и main.js), мы импортируем одну и ту же библиотеку
+	   jquery.  После сборки общие вещи выносятся в vendor.. .js */
+		splitChunks: {
+			chunks: 'all'
+		}
+	};
+
+	if (isProd) {
+		// Переписываем стандартный минимизер использую плагины
+		config.minimizer = [
+			new OptimizeCssAssetsWebpackPlugin(),// минимизация css
+			new TerserWebpackPlugin() // минимизация js
+		];
+	}
+
+	return config;
+};
+
+
+// выводимый файл filename: '[name].[hash].js
+const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
+
 
 module.exports = {
 
@@ -60,7 +109,8 @@ module.exports = {
 
 	// 2 точки входа
 	entry: {
-		main: './index.js',
+		/*  Полифилы: npm install @babel/polyfill - дополнительно для кода вида: async await  */
+		main: ['@babel/polyfill', './index.js'],
 		analitics: './analitics.js'
 	},
 
@@ -69,11 +119,9 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'), //__dirname - текущая директория
 		/* паттерны - https://webpack.js.org/configuration/output/#outputfilename
 		   [name] - здесь паттерн, сюда попадут ключи из entry
-		   [contenthash] - hash, если изменился контент в файле, используется чтобы браузер не кешировал */
-		filename: '[name].[contenthash].bundle.js',
-
-
-		// publicPath: '/'
+		   [contenthash] - hash, если изменился контент в файле, используется чтобы браузер не кешировал
+		filename: '[name].[hash].js',*/
+		filename: filename('js'),
 	},
 
 
@@ -92,6 +140,19 @@ module.exports = {
 	},
 
 
+	/* npm i -D webpack-dev-server  -  автоматическое обновление браузера
+	   webpack-dev-server --mode development --open  - запуск из package.json (--open автоматически открывай окно в браузере)
+	   webpack-dev-server при работе собирает все не в папку dist, а в оперативную память*/
+	devServer: {
+		port: 4200,
+		hot: isDev,
+	},
+
+
+	/* для оптимизации в продакшн */
+	optimization: optimization(),
+
+
 	/* Есть стандартные плагины, есть те, которые требуют установки
 	   плагины должны задаваться через инстансы (new Plugin())*/
 	plugins: [
@@ -99,10 +160,28 @@ module.exports = {
 		//npm i -D html-webpack-plugin  - для работы с html
 		new HTMLWebpackPlugin({
 			template: './index.html',  // чтобы за основу брал этот html
+			minify: {
+				collapseWhitespace: isProd // оптимизируем html
+			}
 		}),
 
 		//npm i -D clean-webpack-plugin  - для очистки файлов и папок
-		new CleanWebpackPlugin()
+		new CleanWebpackPlugin(),
+
+		//npm i -D copy-webpack-plugin  - для копирования фалйлов и папок
+		new CopyWebpackPlugin([
+			{
+				from: path.resolve(__dirname, 'src/favicon.ico'),
+				to: path.resolve(__dirname, 'dist')
+			}
+		]),
+
+
+		//npm i -D mini-css-extract-plugin  -  для работы с css. Также это класс, который дает возможность добавить лоадер
+		new MiniCssExtractPlugin({
+			// filename: '[name].[contenthash].bundle.css',
+			filename: filename('css'),
+		}),
 	],
 
 
@@ -113,9 +192,43 @@ module.exports = {
 			{
 				/* используй лоадеры (выполняются справа налево) если совпала регулярка
 				  'css-loader'  позволяет понимать такие импорты в js -  import './styles/styles.css';    (npm i -D css-loader)
-				  'style-loader'  добавляет стили в секцию head в html динамически !!!    (npm i -D style-loader)  */
+				  'style-loader'  добавляет стили в секцию head в html динамически !!!    (npm i -D style-loader)
+				  MiniCssExtractPlugin.loader  вывод стилей в отдельный файл  (npm i -D mini-css-extract-plugin) */
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
+				//use: ['style-loader', 'css-loader']
+				use: [{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: isDev, //hot module replacement - можно изменять сущность без перезагрузки страницы (полезно в разработке)
+						reloadAll: true
+					},
+				}, 'css-loader']
+			},
+			{
+				/* npm i -D less   и   npm i -D less-loader */
+				test: /\.less$/,
+				use: [{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: isDev,
+						reloadAll: true
+					},
+				},
+					'css-loader',
+					'less-loader']
+			},
+			{
+				/* npm i -D node-sass   и   npm i -D sass-loader */
+				test: /\.s[ac]ss$/,
+				use: [{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: isDev,
+						reloadAll: true
+					},
+				},
+					'css-loader',
+					'sass-loader']
 			},
 			{
 				//npm i -D file-loader  - импорты файлов, картинок  (!!!!  не заработал !!!)
@@ -136,7 +249,52 @@ module.exports = {
 				test: /\.csv$/,
 				use: ['csv-loader']
 			},
+			{
+				/*  babel - компилятор js (новые стандарты по старые браузеры)
+				npm install --save-dev babel-loader @babel/core
+
+				Presets набор определенных плагинов:
+
+					Экспериментальные пресеты:
+						Stage 0 - Strawman (идея)
+						Stage 1 - Proposal (предложение)
+						Stage 2 - Draft: (готов черновик)
+						Stage 3 - Candidate: (кандидат)
+						Stage 4 - Finished: (готово)
+
+					Официальные пресеты:
+						@babel/preset-env for compiling ES2015+ syntax  - (набор плагинов в современном формате)
+																		  "npm install --save-dev @babel/preset-env"
+																		   package.json  "browserslist": "> 0.25%, not dead"
+						@babel/preset-typescript for TypeScript
+						@babel/preset-react for React
+						@babel/preset-flow for Flow
+
+				    Полифилы:
+				    	npm install @babel/polyfill - дополнительно для кода вида: async await
+						При этом в entry тоже надо добавить:
+									entry: {
+										main: ['@babel/polyfill', './index.js'],
+										analitics: './analitics.js'
+									},
+
+					Плагины:
+				    	npm install -D @babel/plugin-proposal-class-properties - дополнительно для кода вида:
+																					class Util {
+																						static id = Date.now();
+																					}
+				    */
+				test: /\.m?js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env'],
+						plugins: ['@babel/plugin-proposal-class-properties']
+					}
+				}
+			}
 		]
 	}
 };
-// 125
+// 224

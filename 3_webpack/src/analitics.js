@@ -1,3 +1,6 @@
+import * as $ from 'jquery';// установка библиотеки npm i -S jquery
+$('#pre').html('use jquery in analitics');
+
 function createAnalitics() {
 	let counter = 0;
 	let destroyed = false;
