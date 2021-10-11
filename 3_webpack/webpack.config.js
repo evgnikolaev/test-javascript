@@ -107,11 +107,14 @@ module.exports = {
 	// режим production/development
 	mode: 'development',
 
-	// 2 точки входа
+	// 2 точки входа (плюс дополнительно для теста typescript и react)
 	entry: {
 		/*  Полифилы: npm install @babel/polyfill - дополнительно для кода вида: async await  */
 		main: ['@babel/polyfill', './index.js'],
-		analitics: './analitics.js'
+		analitics: './analitics.js',
+
+		typescript: './ts.ts',
+		jsx: './jsx.jsx',
 	},
 
 	// куда скомпилировать
@@ -151,6 +154,9 @@ module.exports = {
 
 	/* для оптимизации в продакшн */
 	optimization: optimization(),
+
+	/* devtool   -  для исходных карт, удобно в браузере ориентироваться */
+	devtool: isDev ? 'source-map' : '',
 
 
 	/* Есть стандартные плагины, есть те, которые требуют установки
@@ -293,8 +299,33 @@ module.exports = {
 						plugins: ['@babel/plugin-proposal-class-properties']
 					}
 				}
-			}
+			},
+			{
+				// npm install -D @babel/preset-typescript    - для работы с type script
+				test: /\.ts$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env', '@babel/preset-typescript'],
+						plugins: ['@babel/plugin-proposal-class-properties']
+					}
+				}
+			},
+			{
+				// npm install -D @babel/preset-react     - для работы с react
+				// npm i react react-dom    -  в зависимость разработки
+				test: /\.jsx$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env', '@babel/preset-react'],
+						plugins: ['@babel/plugin-proposal-class-properties']
+					}
+				}
+			},
 		]
 	}
 };
-// 224
+// 236
