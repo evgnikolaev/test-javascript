@@ -1,4 +1,5 @@
 /*
+	https://www.youtube.com/watch?v=eSaF8NXeNsA&ab_channel=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BB%D0%B5%D0%BD%D0%9C%D0%B8%D0%BD%D0%B8%D0%BD
 
 	Gulp - это общая система для организации задач, которая сама по себе сборку не поддерживает, но её можно на ней написать, с помощью плагинов.
 	При этом анализа кода, скорее всего, не будет, а значит ряд продвинутых фич отпадут.
@@ -61,6 +62,9 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 //npm i -D terser-webpack-plugin  - для сжатия js
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
+//npm i -D webpack-bundle-analyzer  - полезен при анализа, оптимизации приложения (в браузере наглядно)
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+
 
 /*
 Мжоно задать системные переменные для windows и linux:
@@ -99,6 +103,48 @@ const optimization = () => {
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
 
 
+/* Есть стандартные плагины, есть те, которые требуют установки
+	   плагины должны задаваться через инстансы (new Plugin())*/
+const plugins = () => {
+	const base = [
+
+		//npm i -D html-webpack-plugin  - для работы с html
+		new HTMLWebpackPlugin({
+			template: './index.html',  // чтобы за основу брал этот html
+			minify: {
+				collapseWhitespace: isProd // оптимизируем html
+			}
+		}),
+
+		//npm i -D clean-webpack-plugin  - для очистки файлов и папок
+		new CleanWebpackPlugin(),
+
+		//npm i -D copy-webpack-plugin  - для копирования фалйлов и папок
+		new CopyWebpackPlugin([
+			{
+				from: path.resolve(__dirname, 'src/favicon.ico'),
+				to: path.resolve(__dirname, 'dist')
+			}
+		]),
+
+
+		//npm i -D mini-css-extract-plugin  -  для работы с css. Также это класс, который дает возможность добавить лоадер
+		new MiniCssExtractPlugin({
+			// filename: '[name].[contenthash].bundle.css',
+			filename: filename('css'),
+		}),
+	];
+
+	if (isProd) {
+		/* npm i -D webpack-bundle-analyzer  - полезен при анализа, оптимизации приложения (в браузере наглядно)
+		  В package.json Можно при помощи команды записать в файл webpack --json > stats.json &&  А после считать его при помощи webpack-bundle-analyzer stats.json" */
+		base.push(new BundleAnalyzerPlugin())
+	}
+
+	return base;
+};
+
+
 module.exports = {
 
 	// говорит где лежат исходники нашего приложения. И webpack будет отталкиваться от данной папки
@@ -107,7 +153,7 @@ module.exports = {
 	// режим production/development
 	mode: 'development',
 
-	// 2 точки входа (плюс дополнительно для теста typescript и react)
+	// 2 точки входа (плюс дополнительно для теста typescript и react и eslint)
 	entry: {
 		/*  Полифилы: npm install @babel/polyfill - дополнительно для кода вида: async await  */
 		main: ['@babel/polyfill', './index.js'],
@@ -115,6 +161,7 @@ module.exports = {
 
 		typescript: './ts.ts',
 		jsx: './jsx.jsx',
+		eslint: './eslint.js',
 	},
 
 	// куда скомпилировать
@@ -161,35 +208,7 @@ module.exports = {
 
 	/* Есть стандартные плагины, есть те, которые требуют установки
 	   плагины должны задаваться через инстансы (new Plugin())*/
-	plugins: [
-
-		//npm i -D html-webpack-plugin  - для работы с html
-		new HTMLWebpackPlugin({
-			template: './index.html',  // чтобы за основу брал этот html
-			minify: {
-				collapseWhitespace: isProd // оптимизируем html
-			}
-		}),
-
-		//npm i -D clean-webpack-plugin  - для очистки файлов и папок
-		new CleanWebpackPlugin(),
-
-		//npm i -D copy-webpack-plugin  - для копирования фалйлов и папок
-		new CopyWebpackPlugin([
-			{
-				from: path.resolve(__dirname, 'src/favicon.ico'),
-				to: path.resolve(__dirname, 'dist')
-			}
-		]),
-
-
-		//npm i -D mini-css-extract-plugin  -  для работы с css. Также это класс, который дает возможность добавить лоадер
-		new MiniCssExtractPlugin({
-			// filename: '[name].[contenthash].bundle.css',
-			filename: filename('css'),
-		}),
-	],
-
+	plugins: plugins(),
 
 	/* webpack умеет работать только с js (ну и json файлами)
 	   Лоадеры - это возможность дополнения к webpack функционала, позволяющая ему работать с другими типами файлов */
@@ -291,7 +310,7 @@ module.exports = {
 																					}
 				    */
 				test: /\.m?js$/,
-				exclude: /node_modules/,
+				exclude: /(node_modules|eslint.js)/,
 				use: {
 					loader: 'babel-loader',
 					options: {
@@ -325,7 +344,46 @@ module.exports = {
 					}
 				}
 			},
+			{
+				/* npm i  -D eslint eslint-loader   -  подключаем eslint (корневой функционал) и eslint-loader
+				.eslintrc - файл конфигурации eslint
+
+					 {
+					  "parser": "babel-eslint",             // npm i  -D babel-eslint - для того чтобы eslint знал синтаксис
+					  "rules": {
+						"no-unused-vars": "warn"			//чтобы выходили warning для неиспользуемых переменных
+					  },
+					  "env": {
+						"es6": true,						// чтобы понимал es6 синтаксис
+						"browser": true						// чтобы понимал, что работаем в браузере ( понимал console.log() )
+					  },
+					  "extends": [
+						"eslint:recommended"                // конфигурация eslint
+					   ]
+					}
+
+				 */
+				test: /eslint.js$/,
+				exclude: /node_modules/,
+				use: [{
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env', '@babel/preset-react'],
+						plugins: ['@babel/plugin-proposal-class-properties']
+					}
+				},
+					'eslint-loader'
+				]
+			},
 		]
 	}
 };
-// 236
+/*
+	npm i lodash - библиотека для работы с динамическими импортами
+
+	Использование:
+	import ('lodash').then(_ => {
+		console.log('Lodash', _.random(0, 42, true));
+	});
+	Отдельно будет подключаться во вкладке network браузера файл 0.js
+*/
