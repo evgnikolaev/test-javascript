@@ -13,6 +13,7 @@
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
+    "statsComment": "Можно при помощи команды записать в файл webpack --json > stats.json &&  А после считать его при помощи webpack-bundle-analyzer stats.json",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "browserslist": "> 0.25%, not dead",
