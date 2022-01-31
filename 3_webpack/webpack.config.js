@@ -67,7 +67,7 @@ const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 
 /*
-Мжоно задать системные переменные для windows и linux:
+Можно задать системные переменные для windows и linux:
 	SET NODE_ENV=development
 	export NODE_ENV=development
 Но это неудобно, поэтому ставим пакет "npm i -D cross-env" и
