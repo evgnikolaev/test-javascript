@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+	<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="title">Слайдер Swiper</div>
+
+	<!-- ГЛАВНЫЙ СЛАЙДЕР -->
+	<div class="image-slider swiper">
+		<!-- Additional required wrapper -->
+		<div class="image-slider__wrapper swiper-wrapper">
+			<!-- Slides -->
+			<div data-hash="slide-1" class="image-slider__slide swiper-slide">
+				<div class="image-slider__image swiper-zoom-container">
+					<!-- <img src="img/1.png" alt="Картинка">-->
+					<img class="swiper-lazy" data-src="img/1.png" src="img/1x1.png" alt="Картинка">
+					<div class="swiper-lazy-preloader"></div>
+				</div>
+			</div>
+			<div data-hash="slide-2" class="image-slider__slide swiper-slide">
+				<div class="image-slider__image">
+					<!-- <img src="img/2.png" alt="Картинка">-->
+					<img class="swiper-lazy" data-src="img/2.png" src="img/1x1.png" alt="Картинка">
+					<div class="swiper-lazy-preloader"></div>
+				</div>
+			</div>
+			<div data-hash="slide-3" class="image-slider__slide swiper-slide">
+				<div class="image-slider__image">
+					<!-- <img src="img/3.png" alt="Картинка">-->
+					<img class="swiper-lazy" data-src="img/3.png" src="img/1x1.png" alt="Картинка">
+					<div class="swiper-lazy-preloader"></div>
+				</div>
+			</div>
+			<div data-hash="slide-4" class="image-slider__slide swiper-slide">
+				<div class="image-slider__image">
+					<!-- <img src="img/4.png" alt="Картинка">-->
+					<img class="swiper-lazy" data-src="img/4.png" src="img/1x1.png" alt="Картинка">
+					<div class="swiper-lazy-preloader"></div>
+				</div>
+			</div>
+			<div data-hash="slide-5" class="image-slider__slide swiper-slide">
+				<div class="image-slider__image">
+					<!--					<img src="img/5.png" alt="Картинка">-->
+					<img class="swiper-lazy" data-src="img/5.png" src="img/1x1.png" alt="Картинка">
+					<div class="swiper-lazy-preloader"></div>
+				</div>
+			</div>
+		</div>
+		<!-- If we need pagination -->
+		<div class="swiper-pagination"></div>
+
+		<!-- Пример работы фракции и прогрессбара вместе -->
+		<div class="image-slider__fraction">
+			<div class="image-slider__current">1</div>
+			<div class="image-slider__separator">/</div>
+			<div class="image-slider__total">1</div>
+		</div>
+
+
+		<!-- If we need navigation buttons -->
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+
+		<!-- If we need scrollbar -->
+		<div class="swiper-scrollbar"></div>
+	</div>
+
+
+	<!-- МИНИАТЮРЫ, ПРЕВЬЮ -->
+	<div class="image-mini-slider swiper">
+		<div class="image-mini-slider__wrapper swiper-wrapper">
+			<div class="image-mini-slider__slide swiper-slide">
+				<div class="image-mini-slider__image">
+					<img src="img/1.png" alt="Картинка">
+				</div>
+			</div>
+			<div class="image-mini-slider__slide swiper-slide">
+				<div class="image-mini-slider__image">
+					<img src="img/2.png" alt="Картинка">
+				</div>
+			</div>
+			<div class="image-mini-slider__slide swiper-slide">
+				<div class="image-mini-slider__image">
+					<img src="img/3.png" alt="Картинка">
+				</div>
+			</div>
+			<div class="image-mini-slider__slide swiper-slide">
+				<div class="image-mini-slider__image">
+					<img src="img/4.png" alt="Картинка">
+				</div>
+			</div>
+			<div class="image-mini-slider__slide swiper-slide">
+				<div class="image-mini-slider__image">
+					<img src="img/5.png" alt="Картинка">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- СВЯЗАННЫЙ СЛАЙДЕР -->
+	<div class="text">Некий разделяющий текст</div>
+	<div class="text-slider swiper">
+		<div class="text-slider__wrapper swiper-wrapper">
+			<div class="text-slider__slide swiper-slide">
+				<h2 data-swiper-parallax="-50" data-swiper-parallax-duration="300"> Слайд 1</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			</div>
+			<div class="text-slider__slide swiper-slide">
+				<h2 data-swiper-parallax="-50" data-swiper-parallax-duration="300"> Слайд 2</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			</div>
+			<div class="text-slider__slide swiper-slide">
+				<h2 data-swiper-parallax="-50" data-swiper-parallax-duration="300"> Слайд 3</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			</div>
+			<div class="text-slider__slide swiper-slide">
+				<h2 data-swiper-parallax="-50" data-swiper-parallax-duration="300"> Слайд 4</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			</div>
+			<div class="text-slider__slide swiper-slide">
+				<h2 data-swiper-parallax="-50" data-swiper-parallax-duration="300"> Слайд 5</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			</div>
+		</div>
+	</div>
+
+
+	<h2>ВИРТУАЛЬНЫЙ СЛАЙДЕР </h2>
+	<!-- ВИРТУАЛЬНЫЙ СЛАЙДЕР -->
+	<div class="virtual-slider swiper">
+		<div class="swiper-wrapper"></div>
+	</div>
+</div>
+
+
+<!--<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>-->
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+<script src="js.js"></script>
+</body>
+</html>

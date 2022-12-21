@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    overflow: hidden;
+}
+
+h1,
+footer {
+    text-align: center;
+    font-size: 5rem;
+}
+
+#box {
+    width: 750px;
+    height: 300px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 1px dashed #777;
+}
+
+.selectors {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.selector {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: rgb(136, 206, 2);
+    margin: 2px;
+}
+
+/* анимация */
+h1 {
+    transform: scale(2) translateX(-1000px);
+}
+
+
+footer {
+    transform: scale(1.5) translateX(1000px);
+}
+
+.selector {
+    transform: scale(2) translateY(300px);
+}

@@ -1,0 +1,13 @@
+#map, #mapRoute {
+	background-color: #ccc;
+}
+
+/* удалить копирайты */
+#map [class*="copyrights-pane"] {
+	display: none !important;
+}
+
+/* сделать карту черно-белой */
+#map [class*="ground-pane"] {
+	filter: grayscale(1);
+}

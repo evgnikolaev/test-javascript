@@ -1,0 +1,13 @@
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+h1{
+    font-size: 4rem;
+    color:orange;
+    opacity: 1;
+}
+.letter{
+    opacity: 0.5;
+    /* border:1px dashed #ccc; */
+}

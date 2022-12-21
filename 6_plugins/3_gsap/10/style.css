@@ -1,0 +1,24 @@
+* {
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	overflow: hidden;
+}
+
+svg {
+	border: 1px dashed #777;
+}
+
+.yourPath {
+	stroke-width: 10px;
+	stroke: rgb(136, 206, 2);
+}
+
+.selector {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background-color: orange;
+}
