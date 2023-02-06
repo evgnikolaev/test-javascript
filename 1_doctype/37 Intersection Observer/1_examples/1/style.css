@@ -1,0 +1,28 @@
+header {
+	height: 120vh;
+	background-color: #ae23ff;
+	color: #fff;
+}
+
+section {
+	height: 100vh;
+	background-color: green;
+	color: #fff;
+}
+
+section:nth-child(2) {
+	height: 100vh;
+	background-color: teal;
+	color: #fff;
+}
+
+section:nth-child(3) {
+	height: 100vh;
+	background-color: #ceb937;
+	color: #fff;
+}
+
+img {
+	width: 150px;
+	height: 150px;
+}
